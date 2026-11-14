@@ -92,7 +92,4 @@ jobs:
           IMAGE: ghcr.io/kf042020/homebox
           SHA: ${{ github.sha }}
         run: |
-          docker buildx imagetools create \\
-            --tag "${IMAGE}:dev" \\
-            "${IMAGE}:${SHA}-amd64" \\
-            "${IMAGE}:${SHA}-aarch64"
+          docker buildx imagetools create --tag "${IMAGE}:dev" "${IMAGE}:${SHA}-amd64" "${IMAGE}:${SHA}-aarch64"
