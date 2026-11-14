@@ -29,6 +29,45 @@ configuration:
     description: >-
       The largest single file that can be attached to an item, in megabytes.
       Photos straight off a phone are regularly larger than the default of 10.
+  label_maker_enabled:
+    name: Enable label output to MQTT
+    description: Enables server-side label generation and publishing PNG labels to MQTT. Configure the broker below and restart the app.
+  label_maker_padding:
+    name: Label padding
+    description: Padding used by Homebox label maker.
+  label_maker_margin:
+    name: Label margin
+    description: Margin used by Homebox label maker.
+  label_maker_width:
+    name: Label width
+    description: Width of generated labels in pixels.
+  label_maker_height:
+    name: Label height
+    description: Height of generated labels in pixels.
+  label_maker_dynamic_length:
+    name: Dynamic label length
+    description: Allow labels to grow vertically when text needs more room. Disable for fixed-height labels.
+  label_maker_font_size:
+    name: Label font size
+    description: Font size used by Homebox label maker.
+  label_maker_print_command:
+    name: Label print command
+    description: Command run by Homebox when Print on Server is selected. {{.FileName}} is replaced by the generated file path.
+  mqtt_host:
+    name: MQTT broker host
+    description: Hostname or IP address of the MQTT broker. Required when MQTT label output is enabled.
+  mqtt_port:
+    name: MQTT broker port
+    description: MQTT broker TCP port, usually 1883.
+  mqtt_topic:
+    name: MQTT topic
+    description: Topic receiving the retained PNG image.
+  mqtt_username:
+    name: MQTT username
+    description: Optional broker username.
+  mqtt_password:
+    name: MQTT password
+    description: Optional broker password.
   smtp_host:
     name: SMTP host
     description: >-

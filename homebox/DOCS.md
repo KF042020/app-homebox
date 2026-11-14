@@ -183,6 +183,21 @@ The private key file to use for SSL.
 
 **Note**: _The file MUST be stored in `/ssl/`, which is the default_
 
+### Label output to MQTT
+
+This fork can publish Homebox's server-generated PNG labels to an MQTT broker.
+Enable **Enable label output to MQTT**, set the MQTT broker host and topic,
+then restart the app. The default topic is `homebox/labels`.
+
+The label maker defaults are 320 × 96 pixels, padding 5, margin 5, font size
+24 and fixed height. The server command copies generated files to
+`/data/homebox/labels/label.png`; an internal watcher publishes completed PNG
+files to MQTT with the retain flag. The label directory is kept in the app's
+private data folder, so it survives restarts and is included in app backups.
+
+MQTT username and password are optional. Leave both empty for an anonymous
+broker. Use a broker reachable from the Home Assistant add-on network.
+
 ## Direct access
 
 By default this app is only reachable through Home Assistant's Ingress, in a

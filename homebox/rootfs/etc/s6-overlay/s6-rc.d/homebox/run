@@ -32,6 +32,10 @@ export HBOX_OPTIONS_TRUST_PROXY="true"
 # outbound request nobody asked for.
 export HBOX_OPTIONS_GITHUB_RELEASE_CHECK="false"
 
+# Match the label-printing setup: no analytics and readable text logs.
+export HBOX_OPTIONS_ALLOW_ANALYTICS="false"
+export HBOX_LOG_FORMAT="text"
+
 # Kept out of the database on purpose; see the init script that makes it.
 HBOX_AUTH_API_KEY_PEPPER=$(</data/homebox/api_key_pepper)
 export HBOX_AUTH_API_KEY_PEPPER
@@ -63,6 +67,17 @@ export HBOX_OPTIONS_AUTO_INCREMENT_ASSET_ID
 
 HBOX_WEB_MAX_UPLOAD_SIZE=$(bashio::config 'max_upload_size' '10')
 export HBOX_WEB_MAX_UPLOAD_SIZE
+
+# Homebox label maker settings.
+if [ "$(bashio::config 'label_maker_enabled' 'false')" = "true" ]; then
+    export HBOX_LABEL_MAKER_PADDING="$(bashio::config 'label_maker_padding' '5')"
+    export HBOX_LABEL_MAKER_MARGIN="$(bashio::config 'label_maker_margin' '5')"
+    export HBOX_LABEL_MAKER_WIDTH="$(bashio::config 'label_maker_width' '320')"
+    export HBOX_LABEL_MAKER_HEIGHT="$(bashio::config 'label_maker_height' '96')"
+    export HBOX_LABEL_MAKER_DYNAMIC_LENGTH="$(bashio::config 'label_maker_dynamic_length' 'false')"
+    export HBOX_LABEL_MAKER_FONT_SIZE="$(bashio::config 'label_maker_font_size' '24')"
+    export HBOX_LABEL_MAKER_PRINT_COMMAND="$(bashio::config 'label_maker_print_command' 'cp {{.FileName}} /data/homebox/labels/label.png')"
+fi
 
 # Without these, a forgotten password has no way out of the house.
 if bashio::config.has_value 'smtp_host'; then

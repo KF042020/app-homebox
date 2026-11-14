@@ -8,7 +8,7 @@ declare pepper
 
 # Everything Homebox writes lives here: the SQLite database, and every photo,
 # receipt and manual attached to an item.
-mkdir -p /data/homebox/storage
+mkdir -p /data/homebox/storage /data/homebox/labels
 
 # Homebox mixes this secret into the API key hashes it stores, so that a copy
 # of the database on its own is not enough to use the keys in it. It has to
