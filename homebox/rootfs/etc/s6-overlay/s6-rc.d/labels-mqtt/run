@@ -16,7 +16,7 @@ fi
 
 if [ -z "${MQTT_HOST}" ]; then
     bashio::log.error "Label MQTT publishing is enabled but mqtt_host is empty."
-    exec sleep infinity
+    while :; do sleep 3600; done
 fi
 
 mkdir -p "${WATCH_DIR}"
