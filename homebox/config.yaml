@@ -1,6 +1,7 @@
 ---
 name: Homebox
 version: dev
+image: ghcr.io/kf042020/homebox
 slug: homebox
 description: Inventory and organization system for the things in your home
 url: https://github.com/KF042020/app-homebox
