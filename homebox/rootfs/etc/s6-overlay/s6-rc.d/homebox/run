@@ -70,13 +70,17 @@ export HBOX_WEB_MAX_UPLOAD_SIZE
 
 # Homebox label maker settings.
 if [ "$(bashio::config 'label_maker_enabled' 'false')" = "true" ]; then
-    export HBOX_LABEL_MAKER_PADDING="$(bashio::config 'label_maker_padding' '5')"
-    export HBOX_LABEL_MAKER_MARGIN="$(bashio::config 'label_maker_margin' '5')"
-    export HBOX_LABEL_MAKER_WIDTH="$(bashio::config 'label_maker_width' '320')"
-    export HBOX_LABEL_MAKER_HEIGHT="$(bashio::config 'label_maker_height' '96')"
-    export HBOX_LABEL_MAKER_DYNAMIC_LENGTH="$(bashio::config 'label_maker_dynamic_length' 'false')"
-    export HBOX_LABEL_MAKER_FONT_SIZE="$(bashio::config 'label_maker_font_size' '24')"
-    export HBOX_LABEL_MAKER_PRINT_COMMAND="$(bashio::config 'label_maker_print_command' 'cp {{.FileName}} /data/homebox/labels/label.png')"
+    HBOX_LABEL_MAKER_PADDING="$(bashio::config 'label_maker_padding' '5')"
+    HBOX_LABEL_MAKER_MARGIN="$(bashio::config 'label_maker_margin' '5')"
+    HBOX_LABEL_MAKER_WIDTH="$(bashio::config 'label_maker_width' '320')"
+    HBOX_LABEL_MAKER_HEIGHT="$(bashio::config 'label_maker_height' '96')"
+    HBOX_LABEL_MAKER_DYNAMIC_LENGTH="$(bashio::config 'label_maker_dynamic_length' 'false')"
+    HBOX_LABEL_MAKER_FONT_SIZE="$(bashio::config 'label_maker_font_size' '24')"
+    HBOX_LABEL_MAKER_PRINT_COMMAND="$(bashio::config 'label_maker_print_command' 'cp {{.FileName}} /data/homebox/labels/label.png')"
+    export HBOX_LABEL_MAKER_PADDING HBOX_LABEL_MAKER_MARGIN
+    export HBOX_LABEL_MAKER_WIDTH HBOX_LABEL_MAKER_HEIGHT
+    export HBOX_LABEL_MAKER_DYNAMIC_LENGTH HBOX_LABEL_MAKER_FONT_SIZE
+    export HBOX_LABEL_MAKER_PRINT_COMMAND
 fi
 
 # Without these, a forgotten password has no way out of the house.
