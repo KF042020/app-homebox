@@ -1,0 +1,125 @@
+---
+configuration:
+  log_level:
+    name: Poziom logowania
+    description: >-
+      Określa szczegółowość komunikatów zapisywanych w dzienniku aplikacji.
+      Wyższy poziom szczegółowości może być przydatny podczas diagnozowania
+      problemów. Każdy poziom obejmuje również komunikaty o wyższym priorytecie.
+  base_url:
+    name: Bazowy adres URL
+    description: >-
+      Adres, pod którym aplikacja jest dostępna z zewnątrz, np.
+      `https://homebox.example.com`. Homebox wykorzystuje go w linkach
+      umieszczanych w wysyłanych wiadomościach e-mail. Pozostaw to pole puste,
+      jeśli korzystasz z aplikacji wyłącznie w sieci lokalnej i nie wysyłasz
+      z niej wiadomości e-mail.
+  allow_registration:
+    name: Zezwalaj na rejestrację
+    description: >-
+      Zezwala każdej osobie mającej dostęp do aplikacji na utworzenie konta.
+      Opcja musi być włączona podczas zakładania pierwszego konta. Później
+      wyłącz ją i zapraszaj pozostałych domowników z poziomu Homeboxa.
+  auto_increment_asset_id:
+    name: Automatyczna numeracja zasobów
+    description: >-
+      Automatycznie nadaje każdemu nowemu przedmiotowi kolejny numer
+      identyfikacyjny. Numery te są umieszczane na drukowanych etykietach.
+      Wyłącz tę opcję, jeśli stosujesz własny system numeracji.
+  max_upload_size:
+    name: Maksymalny rozmiar przesyłanego pliku
+    description: >-
+      Maksymalny rozmiar pojedynczego pliku dołączanego do przedmiotu,
+      wyrażony w megabajtach. Zdjęcia wykonywane współczesnymi telefonami
+      często przekraczają domyślny limit 10 MB.
+  label_maker_enabled:
+    name: Włącz wysyłanie etykiet przez MQTT
+    description: >-
+      Włącza generowanie etykiet po stronie serwera i publikowanie ich obrazów
+      PNG w MQTT. Skonfiguruj poniżej połączenie z brokerem MQTT, a następnie
+      uruchom ponownie dodatek.
+  label_maker_padding:
+    name: Odstęp wewnętrzny etykiety
+    description: >-
+      Odstęp między zawartością etykiety a jej krawędziami, ustawiany
+      w pikselach.
+  label_maker_margin:
+    name: Margines etykiety
+    description: >-
+      Margines pozostawiany wokół elementów etykiety, ustawiany w pikselach.
+  label_maker_width:
+    name: Szerokość etykiety
+    description: Szerokość generowanego obrazu etykiety w pikselach.
+  label_maker_height:
+    name: Wysokość etykiety
+    description: Wysokość generowanego obrazu etykiety w pikselach.
+  label_maker_dynamic_length:
+    name: Dynamiczna wysokość etykiety
+    description: >-
+      Pozwala zwiększać wysokość etykiety, gdy tekst nie mieści się
+      w dostępnej przestrzeni. Wyłącz tę opcję, aby zachować stałą wysokość.
+  label_maker_font_size:
+    name: Rozmiar czcionki na etykiecie
+    description: Rozmiar czcionki używanej na generowanych etykietach.
+  label_maker_print_command:
+    name: Polecenie drukowania etykiety
+    description: >-
+      Polecenie wykonywane przez Homebox po wybraniu opcji „Drukuj na serwerze”.
+      Wartość {{.FileName}} zostanie zastąpiona ścieżką do wygenerowanego pliku.
+  mqtt_host:
+    name: Adres brokera MQTT
+    description: >-
+      Nazwa hosta lub adres IP brokera MQTT. To pole jest wymagane,
+      jeśli wysyłanie etykiet przez MQTT jest włączone.
+  mqtt_port:
+    name: Port brokera MQTT
+    description: Port TCP brokera MQTT, zwykle 1883.
+  mqtt_topic:
+    name: Temat MQTT
+    description: Temat, na który będzie publikowany obraz PNG etykiety.
+  mqtt_username:
+    name: Nazwa użytkownika MQTT
+    description: Opcjonalna nazwa użytkownika wymagana do połączenia z brokerem.
+  mqtt_password:
+    name: Hasło MQTT
+    description: Opcjonalne hasło wymagane do połączenia z brokerem.
+  smtp_host:
+    name: Serwer SMTP
+    description: >-
+      Adres serwera pocztowego używanego do wysyłania zaproszeń i linków
+      do resetowania hasła. Pozostaw pole puste, aby całkowicie wyłączyć
+      wysyłanie wiadomości e-mail.
+  smtp_port:
+    name: Port SMTP
+    description: Port serwera pocztowego, najczęściej 587.
+  smtp_from:
+    name: Adres nadawcy
+    description: Adres e-mail, z którego będą wysyłane wiadomości.
+  smtp_user:
+    name: Nazwa użytkownika SMTP
+    description: >-
+      Nazwa użytkownika serwera pocztowego, zwykle taka sama jak adres nadawcy.
+  smtp_password:
+    name: Hasło SMTP
+    description: Hasło przypisane do podanej nazwy użytkownika SMTP.
+  ssl:
+    name: SSL (HTTPS)
+    description: >-
+      Włącza szyfrowane połączenie HTTPS przy bezpośrednim dostępie do aplikacji.
+      Ustawienie nie wpływa na dostęp przez panel Ingress Home Assistanta.
+  certfile:
+    name: Plik certyfikatu
+    description: >-
+      Plik certyfikatu używanego do obsługi HTTPS. Musi znajdować się
+      w katalogu `/ssl/`.
+  keyfile:
+    name: Plik klucza prywatnego
+    description: >-
+      Plik klucza prywatnego używanego do obsługi HTTPS. Musi znajdować się
+      w katalogu `/ssl/`.
+network:
+  7745/tcp: >-
+    Interfejs WWW i API Homeboxa. Port nie jest wymagany do działania
+    przez Ingress. Udostępnij go, jeśli Homebox ma być osiągalny spoza
+    Home Assistanta, np. podczas skanowania kodu QR z wydrukowanej etykiety
+    telefonem lub przy korzystaniu z własnego serwera proxy.
