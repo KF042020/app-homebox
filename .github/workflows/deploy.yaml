@@ -16,9 +16,10 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: hassio-addons/workflows/.github/workflows/app-ci.yaml@adec4b96071354cc44924a6ef9975ff60cf9ddd9 # v5.0.0
+    uses: ./.github/workflows/app-ci-custom.yaml
 
   build:
+    if: github.event_name == 'push'
     needs: ci
     name: Build & push ${{ matrix.architecture }}
     runs-on: ${{ matrix.architecture == 'aarch64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
@@ -68,9 +69,10 @@ jobs:
             BUILD_NAME=Homebox
             BUILD_REF=${{ github.sha }}
             BUILD_REPOSITORY=KF042020/app-homebox
-            BUILD_VERSION=dev
+            BUILD_VERSION=0.26.3
 
   manifest:
+    if: github.event_name == 'push'
     name: Create multi-architecture image
     needs: build
     runs-on: ubuntu-latest
@@ -92,4 +94,4 @@ jobs:
           IMAGE: ghcr.io/kf042020/homebox
           SHA: ${{ github.sha }}
         run: |
-          docker buildx imagetools create --tag "${IMAGE}:dev" "${IMAGE}:${SHA}-amd64" "${IMAGE}:${SHA}-aarch64"
+          docker buildx imagetools create --tag "${IMAGE}:dev" --tag "${IMAGE}:0.26.3" "${IMAGE}:${SHA}-amd64" "${IMAGE}:${SHA}-aarch64"

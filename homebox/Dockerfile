@@ -34,6 +34,7 @@ RUN \
     \
     && patch -p1 < /patches/ingress-base-path.patch \
     && patch -p1 < /patches/ingress-absolute-urls.patch \
+    && node /patches/labelmaker-localization.mjs \
     \
     && npm install --global "pnpm@${PNPM_VERSION}" \
     \
