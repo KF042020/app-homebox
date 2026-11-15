@@ -56,34 +56,6 @@ replaceExactly(
   "asset location prefix"
 );
 
-// Document the new optional query parameters for the API.
-replaceExactly(
-  "backend/app/api/handlers/v1/v1_ctrl_labelmaker.go",
-  '//\t@Param\t\tprint\tquery\t\tbool\tfalse\t"Print this label, defaults to false"\n//\t@Success\t200',
-  '//\t@Param\t\tprint\t\t\tquery\t\tbool\tfalse\t"Print this label, defaults to false"\n//\t@Param\t\tlocationDescription\tquery\t\tstring\tfalse\t"Translated text, defaults to Homebox Location"\n//\t@Success\t200',
-  "location label swagger parameter"
-);
-
-// The item and asset handlers each have the same print parameter line.
-const goPath = path.join(root, "backend/app/api/handlers/v1/v1_ctrl_labelmaker.go");
-let goSource = fs.readFileSync(goPath, "utf8");
-const printParam = '//\t@Param\t\tprint\tquery\t\tbool\tfalse\t"Print this label, defaults to false"';
-const translatedParam = printParam + '\n//\t@Param\t\tlocationLabel\tquery\t\tstring\tfalse\t"Translated location label, defaults to Location"';
-const printCount = goSource.split(printParam).length - 1;
-if (printCount !== 3) {
-  throw new Error(`Expected 3 label-maker print parameter annotations, found ${printCount}`);
-}
-// Location handler was already updated above; add locationLabel only to item and asset routes.
-goSource = goSource.replace(
-  '//\t@Param\t\tid\t\tpath\t\tstring\ttrue\t"Item ID"\n' + printParam,
-  '//\t@Param\t\t id\tpath\t\tstring\ttrue\t"Item ID"\n' + translatedParam
-);
-goSource = goSource.replace(
-  '//\t@Param\t\tid\t\t\t\tpath\t\tstring\ttrue\t"Asset ID"\n' + printParam,
-  '//\t@Param\t\tid\t\t\t\tpath\t\tstring\ttrue\t"Asset ID"\n' + translatedParam
-);
-fs.writeFileSync(goPath, goSource, "utf8");
-
 // Pass translations from the currently selected UI language.
 replaceExactly(
   "frontend/components/global/LabelMaker.vue",
