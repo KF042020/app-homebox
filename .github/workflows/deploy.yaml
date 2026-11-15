@@ -68,7 +68,7 @@ jobs:
             BUILD_NAME=Homebox
             BUILD_REF=${{ github.sha }}
             BUILD_REPOSITORY=KF042020/app-homebox
-            BUILD_VERSION=dev
+            BUILD_VERSION=0.26.3
 
   manifest:
     name: Create multi-architecture image
@@ -92,4 +92,4 @@ jobs:
           IMAGE: ghcr.io/kf042020/homebox
           SHA: ${{ github.sha }}
         run: |
-          docker buildx imagetools create --tag "${IMAGE}:dev" "${IMAGE}:${SHA}-amd64" "${IMAGE}:${SHA}-aarch64"
+          docker buildx imagetools create --tag "${IMAGE}:dev" --tag "${IMAGE}:0.26.3" "${IMAGE}:${SHA}-amd64" "${IMAGE}:${SHA}-aarch64"
