@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 permissions: {}
 
@@ -19,6 +22,7 @@ jobs:
     uses: hassio-addons/workflows/.github/workflows/app-ci.yaml@adec4b96071354cc44924a6ef9975ff60cf9ddd9 # v5.0.0
 
   build:
+    if: github.event_name == 'push'
     needs: ci
     name: Build & push ${{ matrix.architecture }}
     runs-on: ${{ matrix.architecture == 'aarch64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
@@ -71,6 +75,7 @@ jobs:
             BUILD_VERSION=0.26.3
 
   manifest:
+    if: github.event_name == 'push'
     name: Create multi-architecture image
     needs: build
     runs-on: ubuntu-latest
